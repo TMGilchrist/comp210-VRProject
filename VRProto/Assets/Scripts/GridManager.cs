@@ -12,12 +12,14 @@ public class GridManager : MonoBehaviour
     public GameObject pin;
 
     //The grid of pins
-    private GameObject[,] pinGrid;
+    public GameObject[,] pinGrid;
 
 
 	// Use this for initialization
 	void Start ()
     {
+        pinGrid = new GameObject[gridX, gridZ];
+
         CreateGrid();
 	}
 	
@@ -30,18 +32,27 @@ public class GridManager : MonoBehaviour
     void CreateGrid()
     {
         Vector3 position = new Vector3(0, 0, 0);
+        GameObject newPin;
 
         //Create each item and insert into array
         for (int x = 0; x < gridX; x++)
         {
             for (int z = 0; z < gridZ; z++)
             {
-                GameObject newPin = Instantiate(pin);
-                position.Set(x, 0, z);
+                //Create new pin
+                Debug.Log("Create new pin");
+                newPin = Instantiate(pin);
+
+                //Update position based on position in array
+                position.Set(x/2, 0, z/2);
                 newPin.GetComponent<Transform>().position = position;
 
-                pinGrid[x, z] = newPin;
+                //Set its parent to the gridManager
+                newPin.GetComponent<Transform>().parent = gameObject.GetComponent<Transform>();
 
+                //Add new pin to the array
+                pinGrid[x, z] = newPin;
+                Debug.Log("Array at position " + x + ", " + z + " : " + pinGrid[x, z]);
 
             }
         }
