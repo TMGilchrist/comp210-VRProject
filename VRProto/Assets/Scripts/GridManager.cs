@@ -40,11 +40,10 @@ public class GridManager : MonoBehaviour
             for (int z = 0; z < gridZ; z++)
             {
                 //Create new pin
-                Debug.Log("Create new pin");
                 newPin = Instantiate(pin);
 
-                //Update position based on position in array
-                position.Set(x/2, 0, z/2);
+                //Update position based on position in array - this should be done in the instantation.
+                position.Set(x, 0, z);
                 newPin.GetComponent<Transform>().position = position;
 
                 //Set its parent to the gridManager
@@ -52,7 +51,6 @@ public class GridManager : MonoBehaviour
 
                 //Add new pin to the array
                 pinGrid[x, z] = newPin;
-                Debug.Log("Array at position " + x + ", " + z + " : " + pinGrid[x, z]);
 
             }
         }
