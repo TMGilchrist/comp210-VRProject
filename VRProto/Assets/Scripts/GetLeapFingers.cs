@@ -19,7 +19,7 @@ public class GetLeapFingers : MonoBehaviour
     {
         hand_model = GetComponent<HandModel>();
         leap_hand = hand_model.GetLeapHand();
-        if (leap_hand == null) Debug.LogError("No leap_hand founded");
+        if (leap_hand == null) Debug.LogError("No leap_hand found");
     }
 
 
@@ -28,30 +28,36 @@ public class GetLeapFingers : MonoBehaviour
         //RaycastFromFingers(10, );
     }
 
-    public bool RaycastFromFingers(float castDistance, out RaycastHit hitFunct)
+
+
+    public RaycastHit RaycastFromFingers(float castDistance, out bool rayIsEmpty)
     {
         RaycastHit hit;
+        bool raycastHit;
 
         for (int i = 0; i < HandModel.NUM_FINGERS; i++)
         {
-            FingerModel finger = hand_model.fingers[i];
+            FingerModel finger = hand_model.fingers[i]; //This is sometimes null? Apparently? Not sure why?
 
             // draw ray from finger tips (enable Gizmos in Game window to see)
             Debug.DrawRay(finger.GetTipPosition(), finger.GetRay().direction, Color.red);
 
             //Do actual raycast
-            bool raycastHit = Physics.Raycast(finger.GetTipPosition(), finger.GetRay().direction, out hit, castDistance);
+            raycastHit = Physics.Raycast(finger.GetTipPosition(), finger.GetRay().direction, out hit, castDistance);
 
-            if (raycastHit)
+            if (raycastHit == true)
             {
-                return true;
-            }
-
-            else
-            {
-                return false;
+                rayIsEmpty = false;
+                return hit;
             }
         }
+
+        rayIsEmpty = true;
+
+        //Default raycast, should never actually be called
+        raycastHit = Physics.Raycast(Vector3.zero, Vector3.one, out hit, castDistance);
+        return hit;
     }
+
 
 }
