@@ -79,7 +79,7 @@ public class GridManager : MonoBehaviour
         {
             for (int Z = 0; Z < 3; Z++)
             {
-                Debug.Log(X + ", " + Z);
+                //Debug.Log(X + ", " + Z);
             }
         }
 

@@ -64,25 +64,30 @@ public class GetLeapFingers : MonoBehaviour
         return hit;
     }
 
+
     public RaycastHit RaycastFromPalm(float castDistance, out bool rayIsEmpty)
     {
         RaycastHit hit;
         bool raycastHit;
 
 
-        Transform palm = hand_model.palm; //This is sometimes null? Apparently? Not sure why?
-
-        // draw ray from finger tips (enable Gizmos in Game window to see)
-        Debug.DrawRay(palm.position, Vector3.down, Color.red);
-
-        //Do actual raycast
-        raycastHit = Physics.Raycast(palm.position, Vector3.down, out hit, castDistance);
-
-        if (raycastHit == true)
+        if (hand_model != null)
         {
-            rayIsEmpty = false;
-            return hit;
+            Transform palm = hand_model.palm; //This is sometimes null? Apparently? Not sure why?
+
+            // draw ray from finger tips (enable Gizmos in Game window to see)
+            Debug.DrawRay(palm.position, Vector3.down, Color.red);
+
+            //Do actual raycast
+            raycastHit = Physics.Raycast(palm.position, Vector3.down, out hit, castDistance);
+
+            if (raycastHit == true)
+            {
+                rayIsEmpty = false;
+                return hit;
+            }
         }
+
 
 
         rayIsEmpty = true;
@@ -97,21 +102,29 @@ public class GetLeapFingers : MonoBehaviour
     {
         RaycastHit hit;
         bool raycastHit;
+        FingerModel finger;
 
-        FingerModel finger = hand_model.fingers[1]; //This is sometimes null? Apparently? Not sure why?
-
-        // draw ray from finger tips (enable Gizmos in Game window to see)
-        Debug.DrawRay(finger.GetTipPosition(), finger.GetRay().direction, Color.red);
-
-        //Do actual raycast
-        raycastHit = Physics.Raycast(finger.GetTipPosition(), finger.GetRay().direction, out hit, castDistance);
-
-        if (raycastHit == true)
+        if (hand_model != null)
         {
-            rayIsEmpty = false;
-            return hit;
-        }
-        
+            hand_model = GetComponent<HandModel>();
+
+            if (hand_model.fingers[1] != null)
+            {
+                finger = hand_model.fingers[1]; //This is sometimes null? Apparently? Not sure why?
+
+                // draw ray from finger tips (enable Gizmos in Game window to see)
+                Debug.DrawRay(finger.GetTipPosition(), finger.GetRay().direction, Color.red);
+
+                //Do actual raycast
+                raycastHit = Physics.Raycast(finger.GetTipPosition(), finger.GetRay().direction, out hit, castDistance);
+
+                if (raycastHit == true)
+                {
+                    rayIsEmpty = false;
+                    return hit;
+                }
+            }
+        }                                 
 
         rayIsEmpty = true;
 

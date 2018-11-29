@@ -44,12 +44,12 @@ public class Game : MonoBehaviour
 
     void movePin(GameObject pin)
     {
-        pin.GetComponent<Transform>().Translate(upVector * Time.deltaTime * raiseHeight);
+        if (pin != null)
+        {        
+            pin.GetComponent<Transform>().Translate(upVector * Time.deltaTime * raiseHeight);
 
-        activeObjectIndex = GetIndex(pinGrid.pinGrid, pin);
-
-
-
+            activeObjectIndex = GetIndex(pinGrid.pinGrid, pin);
+        }                     
     }
 
 

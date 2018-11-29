@@ -74,11 +74,9 @@ public class HandManager : MonoBehaviour
 
     public bool CheckHit()
     {
-        //Debug.Log("Checking for hit now.");
         //Left hand raycasting
         if (leftHand.enabled == true)
         {
-            //Debug.Log("Do raycast");
             //Raycast from left hand and check for a hit
             hit = leftHand.GetComponent<GetLeapFingers>().RaycastFromFinger(rayCastDistance, out rayIsEmpty);
 
@@ -99,7 +97,6 @@ public class HandManager : MonoBehaviour
         //Right hand raycasting
         if (rightHand.enabled == true)
         {
-            //Debug.Log("Do raycast");
             //Raycast from left hand and check for a hit
             hit = rightHand.GetComponent<GetLeapFingers>().RaycastFromFinger(rayCastDistance, out rayIsEmpty);
 
