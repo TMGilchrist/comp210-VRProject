@@ -4,9 +4,24 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour
 {
+    //Array of array indices
+    private int[,] neighbours;
 
-	// Use this for initialization
-	void Start ()
+    public int[,] Neighbours
+    {
+        get
+        {
+            return neighbours;
+        }
+
+        set
+        {
+            neighbours = value;
+        }
+    }
+
+    // Use this for initialization
+    void Start ()
     {
 		
 	}
