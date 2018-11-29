@@ -12,12 +12,13 @@ using Leap.Unity;
 
 public class GetLeapFingers : MonoBehaviour
 {
-    HandModel hand_model;
+    public HandModel hand_model;
     Hand leap_hand;
 
-    void Start()
+    void OnEnable()
     {
-        hand_model = GetComponent<HandModel>();
+        Debug.Log(hand_model.fingers[0].name);
+        //hand_model = GetComponent<HandModel>();
         leap_hand = hand_model.GetLeapHand();
         if (leap_hand == null) Debug.LogError("No leap_hand found");
     }
@@ -101,30 +102,33 @@ public class GetLeapFingers : MonoBehaviour
     public RaycastHit RaycastFromFinger(float castDistance, out bool rayIsEmpty)
     {
         RaycastHit hit;
+
         bool raycastHit;
         FingerModel finger;
 
         if (hand_model != null)
         {
-            hand_model = GetComponent<HandModel>();
+            Debug.Log("Hand model not null");
 
             if (hand_model.fingers[1] != null)
             {
-                finger = hand_model.fingers[1]; //This is sometimes null? Apparently? Not sure why?
-
-                // draw ray from finger tips (enable Gizmos in Game window to see)
-                Debug.DrawRay(finger.GetTipPosition(), finger.GetRay().direction, Color.red);
-
-                //Do actual raycast
-                raycastHit = Physics.Raycast(finger.GetTipPosition(), finger.GetRay().direction, out hit, castDistance);
-
-                if (raycastHit == true)
-                {
-                    rayIsEmpty = false;
-                    return hit;
-                }
+                Debug.Log("Fingers not null");
             }
-        }                                 
+        }
+
+        finger = hand_model.fingers[1]; //This is sometimes null? Apparently? Not sure why?
+
+        // draw ray from finger tips (enable Gizmos in Game window to see)
+        Debug.DrawRay(finger.GetTipPosition(), finger.GetRay().direction, Color.red);
+
+        //Do actual raycast
+        raycastHit = Physics.Raycast(finger.GetTipPosition(), finger.GetRay().direction, out hit, castDistance);
+
+        if (raycastHit == true)
+        {
+            rayIsEmpty = false;
+            return hit;
+        }
 
         rayIsEmpty = true;
 
