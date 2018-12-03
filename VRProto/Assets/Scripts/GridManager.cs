@@ -65,7 +65,7 @@ public class GridManager : MonoBehaviour
         //Set its parent to the gridManager
         newPin.GetComponent<Transform>().parent = gameObject.GetComponent<Transform>();
 
-
+		/*
         newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]); //I am so sorry for this mess.
         newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
         newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
@@ -74,7 +74,7 @@ public class GridManager : MonoBehaviour
         newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
         newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
         newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
-
+		*/
 
         //newPin.GetComponent<Pin>().Neighbours
 
