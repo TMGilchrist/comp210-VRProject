@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
 
     //The amount that a pin is raised
     public float raiseHeight = 10;
+    public float raiseSpeed = 10;
 
     private Vector3 upVector = new Vector3(0.0f, 1.0f, 0.0f);
 
@@ -36,19 +37,22 @@ public class Game : MonoBehaviour
         if (hands.CheckHit() == true)
         {
             activeObject = hands.CollisionObjectLeft;
-            movePin(activeObject);
+            raisePin(activeObject);
 
         }
     }
 
 
-    void movePin(GameObject pin)
+    void raisePin(GameObject pin)
     {
         if (pin != null)
-        {        
-            pin.GetComponent<Transform>().Translate(upVector * Time.deltaTime * raiseHeight);
+        {
+            if (pin.transform.position.y <= raiseHeight)
+            {
+                pin.GetComponent<Transform>().Translate(upVector * Time.deltaTime * raiseSpeed);
 
-            activeObjectIndex = GetIndex(pinGrid.pinGrid, pin);
+                activeObjectIndex = GetIndex(pinGrid.pinGrid, pin);
+            }
         }                     
     }
 
