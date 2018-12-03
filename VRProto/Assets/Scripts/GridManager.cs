@@ -14,6 +14,7 @@ public class GridManager : MonoBehaviour
     //The grid of pins
     public GameObject[,] pinGrid;
 
+    public float gridScale = 0.1f;
 
 
 	// Use this for initialization
@@ -57,6 +58,8 @@ public class GridManager : MonoBehaviour
 
             }
         }
+
+        this.transform.localScale = new Vector3(gridScale, gridScale, gridScale);
     }
 
     GameObject CreatePin(int x, int z)

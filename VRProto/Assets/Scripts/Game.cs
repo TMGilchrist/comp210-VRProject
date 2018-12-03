@@ -45,6 +45,7 @@ public class Game : MonoBehaviour
 
     void raisePin(GameObject pin)
     {
+
         if (pin != null)
         {
             if (pin.transform.position.y <= raiseHeight)
