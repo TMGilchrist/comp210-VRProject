@@ -9,18 +9,26 @@ public class HandManager : MonoBehaviour
     public HandModel leftHand;
     public HandModel rightHand;
 
+    //How far to raycast
     public float rayCastDistance;
 
+    //If the ray being returned is an empty default ray and should be ignored.
     private bool rayIsEmpty;
+    
+    //The raycast hit from one of the hands.
     private RaycastHit hit;
+
+    //Distance of the left and right hand raycast hits
     private float hitDistanceLeft;
     private float hitDistanceRight;
 
+    //If a raycast has been successful
     private bool successfulHit = false;
 
     //The objects the left and right hands are interacting with.
     private GameObject collisionObjectLeft;
     private GameObject collisionObjectRight;
+
 
     public GameObject CollisionObjectLeft
     {

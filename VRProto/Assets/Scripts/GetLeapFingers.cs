@@ -104,7 +104,7 @@ public class GetLeapFingers : MonoBehaviour
         bool raycastHit;
         FingerModel finger;
 
-        finger = hand_model.fingers[1]; //This is sometimes null? Apparently? Not sure why?
+        finger = hand_model.fingers[1];
 
         // draw ray from finger tips (enable Gizmos in Game window to see)
         Debug.DrawRay(finger.GetTipPosition(), finger.GetRay().direction, Color.red);

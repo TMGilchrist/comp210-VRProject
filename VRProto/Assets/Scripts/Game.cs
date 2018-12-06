@@ -11,6 +11,7 @@ public class Game : MonoBehaviour
     public float raiseHeight = 10;
     public float raiseSpeed = 10;
 
+    //The vector on which the pins are raised
     private Vector3 upVector = new Vector3(0.0f, 1.0f, 0.0f);
 
     //The object that is currently interactable
