@@ -104,20 +104,10 @@ public class GetLeapFingers : MonoBehaviour
         bool raycastHit;
         FingerModel finger;
 
-        if (hand_model != null)
-        {
-            //Debug.Log("Hand model not null");
-
-            if (hand_model.fingers[1] != null)
-            {
-                //Debug.Log("Fingers not null");
-            }
-        }
-
         finger = hand_model.fingers[1]; //This is sometimes null? Apparently? Not sure why?
 
         // draw ray from finger tips (enable Gizmos in Game window to see)
-        Debug.DrawRay(finger.GetTipPosition(), Vector3.down, Color.red);
+        Debug.DrawRay(finger.GetTipPosition(), finger.GetRay().direction, Color.red);
 
         //Do actual raycast
         raycastHit = Physics.Raycast(finger.GetTipPosition(), finger.GetRay().direction, out hit, castDistance);

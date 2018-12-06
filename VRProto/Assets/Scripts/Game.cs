@@ -14,7 +14,8 @@ public class Game : MonoBehaviour
     private Vector3 upVector = new Vector3(0.0f, 1.0f, 0.0f);
 
     //The object that is currently interactable
-    private GameObject activeObject;
+    private GameObject activeObjectLeft;
+    private GameObject activeObjectRight;
 
     //Index of the currently active object in the grid
     private int[] activeObjectIndex;
@@ -31,18 +32,25 @@ public class Game : MonoBehaviour
         getHandInput();
 	}
 
-
+    /// <summary>
+    /// Check for input from the player's hands in the form of sucessful raycasts.
+    /// </summary>
     void getHandInput()
     {
         if (hands.CheckHit() == true)
         {
-            activeObject = hands.CollisionObjectLeft;
-            raisePin(activeObject);
+            activeObjectLeft = hands.CollisionObjectLeft;
+            activeObjectRight = hands.CollisionObjectRight;
+            raisePin(activeObjectLeft);
+            raisePin(activeObjectRight);
 
         }
     }
 
-
+    /// <summary>
+    /// Raise a pin on the gameboard.
+    /// </summary>
+    /// <param name="pin"> The pin in the grid to move.</param>
     void raisePin(GameObject pin)
     {
 

@@ -13,7 +13,10 @@ public class HandManager : MonoBehaviour
 
     private bool rayIsEmpty;
     private RaycastHit hit;
-    private float hitDistance;
+    private float hitDistanceLeft;
+    private float hitDistanceRight;
+
+    private bool successfulHit = false;
 
     //The objects the left and right hands are interacting with.
     private GameObject collisionObjectLeft;
@@ -45,18 +48,32 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    public float HitDistance
+    public float HitDistanceLeft
     {
         get
         {
-            return hitDistance;
+            return hitDistanceLeft;
         }
 
         set
         {
-            hitDistance = value;
+            hitDistanceLeft = value;
         }
     }
+
+    public float HitDistanceRight
+    {
+        get
+        {
+            return hitDistanceRight;
+        }
+
+        set
+        {
+            hitDistanceRight = value;
+        }
+    }
+
 
 
     // Use this for initialization
@@ -74,8 +91,10 @@ public class HandManager : MonoBehaviour
 
     public bool CheckHit()
     {
+        successfulHit = false;
+
         //Left hand raycasting
-        if (leftHand.enabled == true)
+        if (leftHand.isActiveAndEnabled == true)
         {
             //Raycast from left hand and check for a hit
             hit = leftHand.GetComponent<GetLeapFingers>().RaycastFromFinger(rayCastDistance, out rayIsEmpty);
@@ -86,16 +105,18 @@ public class HandManager : MonoBehaviour
                 //Check for valid collision
                 if (hit.collider != null)
                 {
+                    Debug.Log("Left hand raycast hit.");
                     CollisionObjectLeft = hit.collider.gameObject;
-                    HitDistance = hit.distance;
-                    return true;
+                    HitDistanceLeft = hit.distance;
+                    //return true;
+                    successfulHit = true;
                 }
             }
         }
 
 
         //Right hand raycasting
-        if (rightHand.enabled == true)
+        if (rightHand.isActiveAndEnabled == true)
         {
             //Raycast from left hand and check for a hit
             hit = rightHand.GetComponent<GetLeapFingers>().RaycastFromFinger(rayCastDistance, out rayIsEmpty);
@@ -106,14 +127,16 @@ public class HandManager : MonoBehaviour
                 //Check for valid collision
                 if (hit.collider != null)
                 {
+                    Debug.Log("Right hand raycast hit.");
                     CollisionObjectRight = hit.collider.gameObject;
-                    HitDistance = hit.distance;
-                    return true;
+                    HitDistanceRight = hit.distance;
+                    //return true;
+                    successfulHit = true;
                 }
             }
         }
 
-        return false;
+        return successfulHit;
 
     }
 
