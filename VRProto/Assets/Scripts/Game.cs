@@ -45,16 +45,27 @@ public class Game : MonoBehaviour
             activeObjectLeft = hands.CollisionObjectLeft; //Would this cause previously used objects to raise as well, if the variable is not cleared?
             activeObjectRight = hands.CollisionObjectRight;
 
-            if (hands.palmIsDown)
+            //Left hand
+            if (hands.palmIsDownLeft)
             {
-                Debug.Log("Palm is Down");
+                Debug.Log("Left palm is Down");
                 lowerPin(activeObjectLeft);
+            }
+            
+            else
+            {
+                raisePin(activeObjectLeft);
+            }
+
+            //Right hand
+            if (hands.palmIsDownRight)
+            {
+                Debug.Log("Right palm is Down");
                 lowerPin(activeObjectRight);
             }
 
             else
             {
-                raisePin(activeObjectLeft);
                 raisePin(activeObjectRight);
             }
         }
@@ -81,13 +92,11 @@ public class Game : MonoBehaviour
 
     void lowerPin(GameObject pin)
     {
-        Debug.Log("LowerPin null check");
         if (pin != null)
         {
-            Debug.Log("lowerPin minHeight check");
             if (pin.transform.position.y >= minHeight)
             {
-                Debug.Log("Moving pin down");
+                //Debug.Log("Moving pin down");
                 pin.GetComponent<Transform>().Translate(downVector * Time.deltaTime * moveSpeed);
 
                 activeObjectIndex = GetIndex(pinGrid.pinGrid, pin);

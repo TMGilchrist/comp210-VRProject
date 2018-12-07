@@ -16,7 +16,8 @@ public class HandManager : MonoBehaviour
     private bool rayIsEmpty;
 
     //
-    public bool palmIsDown;
+    public bool palmIsDownLeft;
+    public bool palmIsDownRight;
 
     //The raycast hit from one of the hands.
     private RaycastHit hit;
@@ -31,7 +32,6 @@ public class HandManager : MonoBehaviour
     //The objects the left and right hands are interacting with.
     private GameObject collisionObjectLeft;
     private GameObject collisionObjectRight;
-
 
     public GameObject CollisionObjectLeft
     {
@@ -109,7 +109,7 @@ public class HandManager : MonoBehaviour
         if (leftHand.isActiveAndEnabled == true)
         {
             //Raycast from left hand and check for a hit
-            hit = leftHand.GetComponent<GetLeapFingers>().RaycastFromPalm(rayCastDistance, out palmIsDown, out rayIsEmpty);
+            hit = leftHand.GetComponent<GetLeapFingers>().RaycastFromPalm(rayCastDistance, Utility.Handedness.Left, out palmIsDownLeft, out rayIsEmpty);
             //hit = leftHand.GetComponent<GetLeapFingers>().RaycastFromFinger(rayCastDistance, out rayIsEmpty);
 
             //Check that a valid raycast was returned
@@ -132,7 +132,7 @@ public class HandManager : MonoBehaviour
         if (rightHand.isActiveAndEnabled == true)
         {
             //Raycast from left hand and check for a hit
-            hit = rightHand.GetComponent<GetLeapFingers>().RaycastFromPalm(rayCastDistance, out palmIsDown, out rayIsEmpty);
+            hit = rightHand.GetComponent<GetLeapFingers>().RaycastFromPalm(rayCastDistance,  Utility.Handedness.Right, out palmIsDownRight, out rayIsEmpty);
             //hit = rightHand.GetComponent<GetLeapFingers>().RaycastFromFinger(rayCastDistance, out rayIsEmpty);
 
             //Check that a valid raycast was returned
@@ -153,5 +153,7 @@ public class HandManager : MonoBehaviour
         return successfulHit;
 
     }
+
+
 
 }
