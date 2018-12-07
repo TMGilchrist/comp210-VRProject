@@ -14,7 +14,10 @@ public class HandManager : MonoBehaviour
 
     //If the ray being returned is an empty default ray and should be ignored.
     private bool rayIsEmpty;
-    
+
+    //
+    public bool palmIsDown;
+
     //The raycast hit from one of the hands.
     private RaycastHit hit;
 
@@ -84,6 +87,7 @@ public class HandManager : MonoBehaviour
 
 
 
+
     // Use this for initialization
     void Start ()
     {
@@ -105,7 +109,8 @@ public class HandManager : MonoBehaviour
         if (leftHand.isActiveAndEnabled == true)
         {
             //Raycast from left hand and check for a hit
-            hit = leftHand.GetComponent<GetLeapFingers>().RaycastFromFinger(rayCastDistance, out rayIsEmpty);
+            hit = leftHand.GetComponent<GetLeapFingers>().RaycastFromPalm(rayCastDistance, out palmIsDown, out rayIsEmpty);
+            //hit = leftHand.GetComponent<GetLeapFingers>().RaycastFromFinger(rayCastDistance, out rayIsEmpty);
 
             //Check that a valid raycast was returned
             if (rayIsEmpty != true)
@@ -113,7 +118,7 @@ public class HandManager : MonoBehaviour
                 //Check for valid collision
                 if (hit.collider != null)
                 {
-                    Debug.Log("Left hand raycast hit.");
+                    //Debug.Log("Left hand raycast hit.");
                     CollisionObjectLeft = hit.collider.gameObject;
                     HitDistanceLeft = hit.distance;
                     //return true;
@@ -127,7 +132,8 @@ public class HandManager : MonoBehaviour
         if (rightHand.isActiveAndEnabled == true)
         {
             //Raycast from left hand and check for a hit
-            hit = rightHand.GetComponent<GetLeapFingers>().RaycastFromFinger(rayCastDistance, out rayIsEmpty);
+            hit = rightHand.GetComponent<GetLeapFingers>().RaycastFromPalm(rayCastDistance, out palmIsDown, out rayIsEmpty);
+            //hit = rightHand.GetComponent<GetLeapFingers>().RaycastFromFinger(rayCastDistance, out rayIsEmpty);
 
             //Check that a valid raycast was returned
             if (rayIsEmpty != true)
@@ -135,7 +141,7 @@ public class HandManager : MonoBehaviour
                 //Check for valid collision
                 if (hit.collider != null)
                 {
-                    Debug.Log("Right hand raycast hit.");
+                    //Debug.Log("Right hand raycast hit.");
                     CollisionObjectRight = hit.collider.gameObject;
                     HitDistanceRight = hit.distance;
                     //return true;

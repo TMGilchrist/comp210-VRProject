@@ -66,10 +66,11 @@ public class GetLeapFingers : MonoBehaviour
     }
 
 
-    public RaycastHit RaycastFromPalm(float castDistance, out bool rayIsEmpty)
+    public RaycastHit RaycastFromPalm(float castDistance, out bool palmIsDown, out bool rayIsEmpty)
     {
         RaycastHit hit;
-        bool raycastHit;
+        bool raycastHitDown;
+        bool raycastHitUp;
 
 
         if (hand_model != null)
@@ -77,22 +78,35 @@ public class GetLeapFingers : MonoBehaviour
             Transform palm = hand_model.palm; //This is sometimes null? Apparently? Not sure why?
 
             // draw ray from finger tips (enable Gizmos in Game window to see)
-            Debug.DrawRay(palm.position, Vector3.down, Color.red);
+            Debug.DrawRay(palm.position, -palm.up, Color.red);
 
             //Do actual raycast
-            raycastHit = Physics.Raycast(palm.position, Vector3.down, out hit, castDistance);
+            raycastHitDown = Physics.Raycast(palm.position, -palm.up, out hit, castDistance);
 
-            if (raycastHit == true)
+            if (raycastHitDown == true)
             {
                 rayIsEmpty = false;
+                palmIsDown = true;
                 return hit;
             }
+
+            Debug.DrawRay(palm.position, palm.up, Color.blue);
+            raycastHitUp = Physics.Raycast(palm.position, palm.up, out hit, castDistance);
+
+            if (raycastHitUp == true)
+            {
+                rayIsEmpty = false;
+                palmIsDown = false;
+                return hit;
+            }
+
         }
 
         rayIsEmpty = true;
+        palmIsDown = false;
 
         //Default raycast, should never actually be called
-        raycastHit = Physics.Raycast(Vector3.zero, Vector3.one, out hit, castDistance);
+        raycastHitDown = Physics.Raycast(Vector3.zero, Vector3.one, out hit, castDistance);
         return hit;
     }
 

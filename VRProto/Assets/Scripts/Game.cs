@@ -8,11 +8,13 @@ public class Game : MonoBehaviour
     public HandManager hands;
 
     //The amount that a pin is raised
-    public float raiseHeight = 10;
-    public float raiseSpeed = 10;
+    public float minHeight = -5;
+    public float maxHeight = 10;
+    public float moveSpeed = 10;
 
     //The vector on which the pins are raised
     private Vector3 upVector = new Vector3(0.0f, 1.0f, 0.0f);
+    private Vector3 downVector = new Vector3(0.0f, -1.0f, 0.0f);
 
     //The object that is currently interactable
     private GameObject activeObjectLeft;
@@ -40,11 +42,21 @@ public class Game : MonoBehaviour
     {
         if (hands.CheckHit() == true)
         {
-            activeObjectLeft = hands.CollisionObjectLeft;
+            activeObjectLeft = hands.CollisionObjectLeft; //Would this cause previously used objects to raise as well, if the variable is not cleared?
             activeObjectRight = hands.CollisionObjectRight;
-            raisePin(activeObjectLeft);
-            raisePin(activeObjectRight);
 
+            if (hands.palmIsDown)
+            {
+                Debug.Log("Palm is Down");
+                lowerPin(activeObjectLeft);
+                lowerPin(activeObjectRight);
+            }
+
+            else
+            {
+                raisePin(activeObjectLeft);
+                raisePin(activeObjectRight);
+            }
         }
     }
 
@@ -57,13 +69,30 @@ public class Game : MonoBehaviour
 
         if (pin != null)
         {
-            if (pin.transform.position.y <= raiseHeight)
+            if (pin.transform.position.y <= maxHeight)
             {
-                pin.GetComponent<Transform>().Translate(upVector * Time.deltaTime * raiseSpeed);
+                pin.GetComponent<Transform>().Translate(upVector * Time.deltaTime * moveSpeed);
 
                 activeObjectIndex = GetIndex(pinGrid.pinGrid, pin);
             }
         }                     
+    }
+
+
+    void lowerPin(GameObject pin)
+    {
+        Debug.Log("LowerPin null check");
+        if (pin != null)
+        {
+            Debug.Log("lowerPin minHeight check");
+            if (pin.transform.position.y >= minHeight)
+            {
+                Debug.Log("Moving pin down");
+                pin.GetComponent<Transform>().Translate(downVector * Time.deltaTime * moveSpeed);
+
+                activeObjectIndex = GetIndex(pinGrid.pinGrid, pin);
+            }
+        }
     }
 
 
