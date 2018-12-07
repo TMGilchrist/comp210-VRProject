@@ -49,6 +49,7 @@ public class Pin : MonoBehaviour
                 {
                     //move neighbour
                     neighbour.GetComponent<Pin>().magnetismImmune = true;
+                    //activate neighbour magnetism
                 }
             }
 

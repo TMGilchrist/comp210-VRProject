@@ -75,16 +75,20 @@ public class Game : MonoBehaviour
     /// Raise a pin on the gameboard.
     /// </summary>
     /// <param name="pin"> The pin in the grid to move.</param>
-    void raisePin(GameObject pin)
+    public void raisePin(GameObject pin)
     {
 
         if (pin != null)
         {
             if (pin.transform.position.y <= maxHeight)
             {
+                //Move the pin
                 pin.GetComponent<Transform>().Translate(upVector * Time.deltaTime * moveSpeed);
 
-                activeObjectIndex = GetIndex(pinGrid.pinGrid, pin);
+                //Activate magnetism of pin
+                pin.GetComponent<Pin>().magnetismActive = true;
+
+                activeObjectIndex = GetIndex(pinGrid.pinGrid, pin); //This may be redundant now
             }
         }                     
     }
