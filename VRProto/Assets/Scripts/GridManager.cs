@@ -48,6 +48,15 @@ public class GridManager : MonoBehaviour
         }
 
         this.transform.localScale = new Vector3(gridScale, gridScale, gridScale);
+
+        //Add pin neighbours
+        for (int x = 0; x < gridX; x++)
+        {
+            for (int z = 0; z < gridZ; z++)
+            {
+                AddNeighbours(pinGrid[x, z].GetComponent<Pin>(), x, z);
+            }
+        }
     }
 
     GameObject CreatePin(int x, int z)
@@ -65,22 +74,61 @@ public class GridManager : MonoBehaviour
         //Set its parent to the gridManager
         newPin.GetComponent<Transform>().parent = gameObject.GetComponent<Transform>();
 
-		/*
-        newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]); //I am so sorry for this mess.
-        newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
-        newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
-        newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
-        newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
-        newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
-        newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
-        newPin.GetComponent<Pin>().neighbours.Add(pinGrid[x, z]);
-		*/
-
-        //newPin.GetComponent<Pin>().Neighbours
-
         return newPin;
     }
 
+    void AddNeighbours(Pin pin, int x, int z)
+    {
+        /*----------------------------
+          I am so sorry for this mess.
+          -----------------------------*/
 
+        //Check left of grid
+        if (x - 1 >= 0)
+        {
+            pin.neighbours.Add(pinGrid[x - 1, z]);
+        }
 
+        //Check left and bottom of grid
+        if ((x - 1 >= 0) && (z - 1 >= 0))
+        {
+            pin.neighbours.Add(pinGrid[x - 1, z - 1]);
+        }
+
+        //Check left and top of grid
+        if ((x - 1 >= 0) && (z + 1 < pinGrid.GetLength(1)))
+        {
+            pin.neighbours.Add(pinGrid[x - 1, z + 1]);
+        }
+
+        //Check bottom of grid
+        if ((z - 1 >= 0))
+        {
+            pin.neighbours.Add(pinGrid[x, z - 1]);
+        }
+
+        //Check top of grid
+        if (z + 1 < pinGrid.GetLength(1))
+        {
+            pin.neighbours.Add(pinGrid[x, z + 1]); //Sometimes throws an error not finding an object at this position?
+        }
+
+        //Check right and top of grid
+        if ((x + 1 < pinGrid.GetLength(0)) && (z + 1 < pinGrid.GetLength(1)))
+        {
+            pin.neighbours.Add(pinGrid[x + 1, z + 1]);
+        }
+
+        //Check right of grid
+        if (x + 1 < pinGrid.GetLength(0))
+        {
+            pin.neighbours.Add(pinGrid[x + 1, z]);
+        }
+
+        //Check right and bottom of grid
+        if ((x + 1 < pinGrid.GetLength(0)) && (z - 1 >= 0))
+        {
+            pin.neighbours.Add(pinGrid[x + 1, z - 1]);
+        }
+    }
 }
