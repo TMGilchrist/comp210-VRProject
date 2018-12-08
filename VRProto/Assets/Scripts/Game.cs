@@ -48,19 +48,20 @@ public class Game : MonoBehaviour
             //Left hand
             if (hands.palmIsDownLeft)
             {
-                Debug.Log("Left palm is Down");
+                //Debug.Log("Left palm is Down");
                 lowerPin(activeObjectLeft);
             }
             
             else
             {
                 raisePin(activeObjectLeft);
+                //activeObjectLeft.GetComponent<Pin>().UpdatePin(Vector3.up, maxHeight, moveSpeed);
             }
 
             //Right hand
             if (hands.palmIsDownRight)
             {
-                Debug.Log("Right palm is Down");
+                //Debug.Log("Right palm is Down");
                 lowerPin(activeObjectRight);
             }
 
@@ -80,15 +81,16 @@ public class Game : MonoBehaviour
 
         if (pin != null)
         {
+            Debug.Log("Pin height : " + pin.transform.position.y + " MaxHeight: " + maxHeight);
             if (pin.transform.position.y <= maxHeight)
             {
                 //Move the pin
                 pin.GetComponent<Transform>().Translate(upVector * Time.deltaTime * moveSpeed);
 
                 //Activate magnetism of pin
-                pin.GetComponent<Pin>().magnetismActive = true;
+                //pin.GetComponent<Pin>().magnetismActive = true;
 
-                activeObjectIndex = GetIndex(pinGrid.pinGrid, pin); //This may be redundant now
+                //activeObjectIndex = GetIndex(pinGrid.pinGrid, pin); //This may be redundant now
             }
         }                     
     }
@@ -103,7 +105,7 @@ public class Game : MonoBehaviour
                 //Debug.Log("Moving pin down");
                 pin.GetComponent<Transform>().Translate(downVector * Time.deltaTime * moveSpeed);
 
-                activeObjectIndex = GetIndex(pinGrid.pinGrid, pin);
+                //activeObjectIndex = GetIndex(pinGrid.pinGrid, pin);
             }
         }
     }
