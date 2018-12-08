@@ -403,6 +403,8 @@ MonoBehaviour:
   leftHand: {fileID: 795843132}
   rightHand: {fileID: 730413111}
   rayCastDistance: 10000
+  palmIsDownLeft: 0
+  palmIsDownRight: 0
 --- !u!114 &181088364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1919,8 +1921,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinGrid: {fileID: 1423849682}
   hands: {fileID: 181088363}
-  raiseHeight: 1
-  raiseSpeed: 10
+  minHeight: -5
+  maxHeight: 10
+  moveSpeed: 10
 --- !u!4 &1711867593
 Transform:
   m_ObjectHideFlags: 0

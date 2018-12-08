@@ -4,23 +4,6 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour
 {
-    //Array of array indices
-    /*private int[,] neighbours;
-
-    public int[,] Neighbours
-    {
-        get
-        {
-            return neighbours;
-        }
-
-        set
-        {
-            neighbours = value;
-        }
-    }*/
-
-
     public List<GameObject> neighbours = new List<GameObject>();
 
     //If this object can exert magnetism on neighbours
@@ -57,4 +40,23 @@ public class Pin : MonoBehaviour
             magnetismImmune = true;
         }
 	}
+
+
+    public void movePin(GameObject pin, float maxHeight, float moveSpeed)
+    {
+
+        if (pin != null)
+        {
+            if (pin.transform.position.y <= maxHeight)
+            {
+                //Move the pin
+                pin.GetComponent<Transform>().Translate(Vector3.up * Time.deltaTime * moveSpeed);
+
+                //Activate magnetism of pin
+                pin.GetComponent<Pin>().magnetismActive = true;
+            }
+        }
+    }
+
+
 }
