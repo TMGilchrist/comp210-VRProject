@@ -1922,8 +1922,8 @@ MonoBehaviour:
   pinGrid: {fileID: 1423849682}
   hands: {fileID: 181088363}
   minHeight: -5
-  maxHeight: 10
-  moveSpeed: 10
+  maxHeight: 6
+  moveSpeed: 4
 --- !u!4 &1711867593
 Transform:
   m_ObjectHideFlags: 0
